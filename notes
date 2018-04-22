@@ -1,0 +1,61 @@
+provide React with a template of what the component should look like once it is finished being prepared, i.e.
+<div id="my-hog-world" className="dank-styling">
+  { filteredHogsArray.map(hog => "<img src=${hog.img}>") }
+  <!-- ^ e.g. show all my hogs in list elements! -->
+</div>
+declarative: not told it what to explicitly add/delete from the DOM
+
+Imperative vs Declarative
+imperative:
+  const people = ['Amanda', 'Geoff', 'Michael', 'Richard', 'Ryan', 'Tyler']
+  const excitedPeople = []
+  for (let i = 0; i < people.length; i++) {  excitedPeople[i] = people[i] + '!'}
+declarative
+  const people = ['Amanda', 'Geoff', 'Michael', 'Richard', 'Ryan', 'Tyler']
+  const excitedPeople = people.map(name => name + '!')
+
+
+Component
+  split the UI into independent, reusable pieces, and think about each piece in isolation.
+Component Example:
+class Comment extends React.Component{
+render(){
+    return <div>
+        i am a hard coded comment! help! make me dynamic!
+    </div>
+  }
+}
+******************************************with re-reusable
+class Comment extends React.Component {
+  render() {
+    return (        //'templating' nature of React Information is passed to the component itself, which can then// dynamically render it.
+      <div className="comment">// `className=` is used in place of traditional `class=`
+        {this.props.content}
+      </div>
+    )
+  }
+}
+
+class BlogPost extends React.Component {
+  render() {
+    return (
+      <div id="blog-post">
+
+        <div id="blog-content">
+          Dear Reader: Bjarne Stroustrup has the perfect lecture oration.
+        </div>
+
+        <Comment content={"I agree with this statement. - Angela Merkel"}/>
+        <Comment content={"A universal truth. - Noam Chomsky"}/>
+        <Comment content={"Truth is singular. Its ‘versions’ are mistruths. - Sonmi-451"}/>
+
+      </div>
+    )
+  }
+}
+// content={'blah'} portion. We are defining a variable that is passed to
+// every `Comment` component. Thereafter, we can access that `content` variable within
+// the `Comment` component via the `this.props.content` you see above.
+******************
+export component
+The reason we are exporting them here is so that our testing suite will have access to them.
